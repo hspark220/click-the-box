@@ -1,35 +1,14 @@
 import { useState } from 'react';
 import Square from './components/Square';
 import NotSquare from './components/NotSquare';
+import nSquaresData from './utils/nSquaresData';
 import uniqid from 'uniqid'
 
 function App() {
+  const [nSquares, setNSquares] = useState(nSquaresData());
 
-  const [nSquares, setNSquares] = useState([
-    {
-      top: 100,
-      left: 100,
-      key:  uniqid()
-    },
-    {
-      top: 50,
-      left: 50,
-      key: uniqid()
-    },
-    {
-      top: 100,
-      left: 100,
-      key:  uniqid()
-    },
-    {
-      top: 50,
-      left: 50,
-      key: uniqid()
-    }
-  ]);
-
-  const [squareLeft, setSquareLeft] = useState(0);
   const [squareTop, setSquareTop] = useState(0);
+  const [squareLeft, setSquareLeft] = useState(185);
   const [score, setScore] = useState(0);
 
   const changePosition = () => {
@@ -72,6 +51,8 @@ function App() {
   const incrementScore = () => {
     setScore(score + 1);
     changePosition();
+    addSquare();
+    
   }
 
   const decrementScore = () => {
@@ -79,9 +60,17 @@ function App() {
     changePosition();
   }
 
+  const addSquare = () => {
+    setNSquares(nSquares.concat({
+      top: Math.floor(Math.random()*500),
+      left: Math.floor(Math.random()*500),
+      key: uniqid()
+    }))
+  }
+
   return (
     <div className="App">
-      <h1>{score}</h1>
+      <h1>{"Score: " + score}</h1>
       <div className='game-board'>
         <Square top={squareTop} left={squareLeft} onClick={incrementScore} />
         {
