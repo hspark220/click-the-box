@@ -1,0 +1,13 @@
+.square {
+    border: 1px solid;
+    height: 30px;
+    width: 30px;
+    position: relative;
+}
+
+.not-square {
+    border: 1px solid;
+    height: 30px;
+    width: 30px;
+    position: relative;
+}
