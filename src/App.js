@@ -4,36 +4,56 @@ import NotSquare from './components/NotSquare';
 
 function App() {
 
-  const [squareLeft, setSquareLeft] = useState(50);
-  const [squareTop, setSquareTop] = useState(50);
-  const [nSquareLeft, setNSquareLeft] = useState(50);
-  const [nSquareTop, setNSquareTop] = useState(50);
+  const [squareLeft, setSquareLeft] = useState(0);
+  const [squareTop, setSquareTop] = useState(0);
+  const [nSquareLeft, setNSquareLeft] = useState(100);
+  const [nSquareTop, setNSquareTop] = useState(100);
   const [score, setScore] = useState(0);
 
-  const changePosition = shape => {
-    const newTop = Math.floor(Math.random()*100);
-    const newLeft = Math.floor(Math.random()*100);
+  const changePosition = () => {
+    const sqrTop = Math.floor(Math.random()*100);
+    const sqrLeft = Math.floor(Math.random()*100);
 
-    setSquareTop(newTop);
-    setSquareLeft(newLeft);
+    let nSqrTop = Math.floor(Math.random()*100);
+    let nSqrLeft = Math.floor(Math.random()*100);
 
-    if (shape == 'square') incrementScore();
-    else decrementScore();
+    const diamondSize = 30*Math.sqrt(2);
+    let topDiff = Math.abs(sqrTop - nSqrTop);
+    let leftDiff = Math.abs(sqrLeft - nSqrLeft);
+
+    while (topDiff < diamondSize || leftDiff < diamondSize) {
+      nSqrTop = Math.floor(Math.random()*100);
+      nSqrLeft = Math.floor(Math.random()*100);
+      topDiff = Math.abs(sqrTop - nSqrTop);
+      leftDiff = Math.abs(sqrLeft - nSqrLeft);
+
+    }
+
+    setSquareTop(sqrTop);
+    setSquareLeft(sqrLeft);
+    setNSquareTop(nSqrTop);
+    setNSquareLeft(nSqrLeft);
   }
+
 
   const incrementScore = () => {
     setScore(score + 1);
+    changePosition();
   }
 
   const decrementScore = () => {
     setScore(score - 1);
+    changePosition();
   }
 
   return (
     <div className="App">
       <h1>{score}</h1>
-      <Square top={squareTop} left={squareLeft} onClick={changePosition}/>
-      <NotSquare onClick={changePosition} />
+      <div className='game-board'>
+        <Square top={squareTop} left={squareLeft} onClick={incrementScore} />
+        <NotSquare top={nSquareTop} left={nSquareLeft} onClick={decrementScore} />
+      </div>
+      
     </div>
   );
 }

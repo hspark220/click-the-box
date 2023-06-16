@@ -1,13 +1,19 @@
+.game-board {
+    width: 300px;
+    height: 300px;
+    position: relative;
+}
+
 .square {
     border: 1px solid;
     height: 30px;
     width: 30px;
-    position: relative;
+    position: absolute;
 }
 
 .not-square {
     border: 1px solid;
     height: 30px;
     width: 30px;
-    position: relative;
+    position: absolute;
 }
