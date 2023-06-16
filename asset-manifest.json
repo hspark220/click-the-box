@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/click-the-box/static/css/main.e111e4fe.css",
+    "main.js": "/click-the-box/static/js/main.f37323bb.js",
+    "index.html": "/click-the-box/index.html",
+    "main.e111e4fe.css.map": "/click-the-box/static/css/main.e111e4fe.css.map",
+    "main.f37323bb.js.map": "/click-the-box/static/js/main.f37323bb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e111e4fe.css",
+    "static/js/main.f37323bb.js"
+  ]
+}
