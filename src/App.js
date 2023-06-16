@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Square from './components/Square';
 import NotSquare from './components/NotSquare';
+import uniqid from 'uniqid'
 
 function App() {
 
@@ -8,42 +9,63 @@ function App() {
     {
       top: 100,
       left: 100,
+      key:  uniqid()
     },
     {
       top: 50,
-      left: 50
+      left: 50,
+      key: uniqid()
+    },
+    {
+      top: 100,
+      left: 100,
+      key:  uniqid()
+    },
+    {
+      top: 50,
+      left: 50,
+      key: uniqid()
     }
-  ])
+  ]);
 
   const [squareLeft, setSquareLeft] = useState(0);
   const [squareTop, setSquareTop] = useState(0);
-  const [nSquareLeft, setNSquareLeft] = useState([100, 40]);
-  const [nSquareTop, setNSquareTop] = useState([100, 40]);
   const [score, setScore] = useState(0);
 
   const changePosition = () => {
-    const sqrTop = Math.floor(Math.random()*100);
-    const sqrLeft = Math.floor(Math.random()*100);
+    const sqrTop = Math.floor(Math.random()*500);
+    const sqrLeft = Math.floor(Math.random()*500);
 
-    let nSqrTop = Math.floor(Math.random()*100);
-    let nSqrLeft = Math.floor(Math.random()*100);
 
-    const diamondSize = 30*Math.sqrt(2);
-    let topDiff = Math.abs(sqrTop - nSqrTop);
-    let leftDiff = Math.abs(sqrLeft - nSqrLeft);
+    nSquares.map( (nSquare, index) => {
+      let nSqrTop = Math.floor(Math.random()*500);
+      let nSqrLeft = Math.floor(Math.random()*500);
 
-    while (topDiff < diamondSize || leftDiff < diamondSize) {
-      nSqrTop = Math.floor(Math.random()*100);
-      nSqrLeft = Math.floor(Math.random()*100);
-      topDiff = Math.abs(sqrTop - nSqrTop);
-      leftDiff = Math.abs(sqrLeft - nSqrLeft);
+      const diamondSize = 30*Math.sqrt(2);
+      let topDiff = Math.abs(sqrTop - nSqrTop);
+      let leftDiff = Math.abs(sqrLeft - nSqrLeft);
 
-    }
+      while (topDiff < diamondSize || leftDiff < diamondSize) {
+        nSqrTop = Math.floor(Math.random()*500);
+        nSqrLeft = Math.floor(Math.random()*500);
+        topDiff = Math.abs(sqrTop - nSqrTop);
+        leftDiff = Math.abs(sqrLeft - nSqrLeft);
+
+      }
+      setNSquares(nSquares.map((nSquareB, indexB) => {
+        if (index == indexB) {
+          nSquareB.top = nSqrTop;
+          nSquareB.left = nSqrLeft;
+        }
+        return nSquareB;
+      }));
+    });
+
+    
 
     setSquareTop(sqrTop);
     setSquareLeft(sqrLeft);
-    setNSquareTop(nSqrTop);
-    setNSquareLeft(nSqrLeft);
+    
   }
 
 
@@ -64,7 +86,7 @@ function App() {
         <Square top={squareTop} left={squareLeft} onClick={incrementScore} />
         {
           nSquares.map(nSquare => {
-            return <NotSquare top={nSquare.top} left={nSquare.left} onClick={decrementScore} degree={Math.floor(Math.random()*40)+5} />
+            return <NotSquare top={nSquare.top} left={nSquare.left} onClick={decrementScore} degree={Math.floor(Math.random()*40)+5} key={uniqid()}/>
           })
 
         }
