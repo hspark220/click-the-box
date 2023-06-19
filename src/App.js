@@ -53,6 +53,7 @@ function App() {
     changePosition();
     addSquare();
     
+    
   }
 
   const decrementScore = () => {
@@ -61,9 +62,25 @@ function App() {
   }
 
   const addSquare = () => {
+
+    let nSqrTop =  Math.floor(Math.random()*500);
+    let nSqrLeft =  Math.floor(Math.random()*500);
+
+    const diamondSize = 30*Math.sqrt(2);
+    let topDiff = Math.abs(squareTop - nSqrTop);
+    let leftDiff = Math.abs(squareLeft - nSqrLeft);
+
+    while (topDiff < diamondSize || leftDiff < diamondSize) {
+      nSqrTop = Math.floor(Math.random()*500);
+      nSqrLeft = Math.floor(Math.random()*500);
+      topDiff = Math.abs(squareTop - nSqrTop);
+      leftDiff = Math.abs(squareLeft - nSqrLeft);
+
+    }
+
     setNSquares(nSquares.concat({
-      top: Math.floor(Math.random()*500),
-      left: Math.floor(Math.random()*500),
+      top: nSqrTop,
+      left: nSqrLeft,
       key: uniqid()
     }))
   }
